@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/princjef/gomarkdoc v0.4.1
-	google.golang.org/grpc v1.54.0
+	google.golang.org/grpc v1.56.3
 )
 
 require (
@@ -53,7 +53,7 @@ require (
 	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/term v0.7.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
-	google.golang.org/genproto v0.0.0-20230403163135-c38d8f061ccd // indirect
+	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
