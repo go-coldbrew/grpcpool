@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func TestPool(t *testing.T) {
@@ -39,7 +40,7 @@ func TestClose(t *testing.T) {
 
 	pool := &roundRobinConnPool{}
 	for i := 0; i < 4; i++ {
-		conn, err := grpc.Dial(l.Addr().String(), grpc.WithInsecure())
+		conn, err := grpc.Dial(l.Addr().String(), grpc.WithTransportCredentials(insecure.NewCredentials()))
 		if err != nil {
 			t.Fatal(err)
 		}
