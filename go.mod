@@ -1,6 +1,6 @@
 module github.com/go-coldbrew/grpcpool
 
-go 1.25.0
+go 1.25
 
 require (
 	github.com/hashicorp/go-multierror v1.1.1
