@@ -77,6 +77,9 @@ func New(conns []*grpc.ClientConn) ConnPool {
 }
 
 // DialContext creates a new ConnPool with num connections to target.
+//
+// Note: The ctx parameter is retained for backward compatibility but is not
+// used. Cancellation and deadlines in ctx do not affect connection creation.
 func DialContext(_ context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error) {
 	if num == 0 {
 		return nil, errors.New("grpcpool: num must be greater than 0")
@@ -85,6 +88,12 @@ func DialContext(_ context.Context, target string, num uint, opts ...grpc.DialOp
 	for i := range conns {
 		conn, err := grpc.NewClient(target, opts...)
 		if err != nil {
+			// Close any connections created before the failure
+			for _, c := range conns[:i] {
+				if c != nil {
+					c.Close()
+				}
+			}
 			return nil, err
 		}
 		conns[i] = conn
