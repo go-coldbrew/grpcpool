@@ -1,6 +1,7 @@
 package grpcpool
 
 import (
+	"context"
 	"net"
 	"testing"
 
@@ -64,4 +65,27 @@ func mockServer(t *testing.T) (*grpc.Server, net.Listener) {
 	go s.Serve(l)
 
 	return s, l
+}
+
+func TestDialContext_ZeroNum(t *testing.T) {
+	_, err := DialContext(context.Background(), "localhost:0", 0)
+	if err == nil {
+		t.Fatal("expected error for num=0")
+	}
+}
+
+func TestDialContext_Success(t *testing.T) {
+	_, l := mockServer(t)
+	defer l.Close()
+
+	pool, err := DialContext(context.Background(), l.Addr().String(), 3,
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		t.Fatalf("DialContext: %v", err)
+	}
+	defer pool.Close()
+
+	if pool.Num() != 3 {
+		t.Errorf("pool.Num() = %d; want 3", pool.Num())
+	}
 }
