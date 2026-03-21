@@ -77,13 +77,13 @@ func New(conns []*grpc.ClientConn) ConnPool {
 }
 
 // DialContext creates a new ConnPool with num connections to target.
-func DialContext(ctx context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error) {
+func DialContext(_ context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error) {
 	if num == 0 {
 		return nil, errors.New("grpcpool: num must be greater than 0")
 	}
 	conns := make([]*grpc.ClientConn, num)
 	for i := range conns {
-		conn, err := grpc.DialContext(ctx, target, opts...)
+		conn, err := grpc.NewClient(target, opts...)
 		if err != nil {
 			return nil, err
 		}
