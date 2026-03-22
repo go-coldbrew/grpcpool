@@ -12,12 +12,12 @@ grpcpool is a pool of grpc.ClientConns. It implements grpc.ClientConnInterface t
 
 - [type ConnPool](<#ConnPool>)
   - [func Dial\(target string, num uint, opts ...grpc.DialOption\) \(ConnPool, error\)](<#Dial>)
-  - [func DialContext\(ctx context.Context, target string, num uint, opts ...grpc.DialOption\) \(ConnPool, error\)](<#DialContext>)
+  - [func DialContext\(\_ context.Context, target string, num uint, opts ...grpc.DialOption\) \(ConnPool, error\)](<#DialContext>)
   - [func New\(conns \[\]\*grpc.ClientConn\) ConnPool](<#New>)
 
 
 <a name="ConnPool"></a>
-## type ConnPool
+## type [ConnPool](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L16-L34>)
 
 ConnPool is a pool of grpc.ClientConns.
 
@@ -44,7 +44,7 @@ type ConnPool interface {
 ```
 
 <a name="Dial"></a>
-### func Dial
+### func [Dial](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L105>)
 
 ```go
 func Dial(target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
@@ -53,16 +53,18 @@ func Dial(target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
 Dial creates a new ConnPool with num connections to target.
 
 <a name="DialContext"></a>
-### func DialContext
+### func [DialContext](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L83>)
 
 ```go
-func DialContext(ctx context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
+func DialContext(_ context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
 ```
 
 DialContext creates a new ConnPool with num connections to target.
 
+Note: The ctx parameter is retained for backward compatibility but is not used. Cancellation and deadlines in ctx do not affect connection creation.
+
 <a name="New"></a>
-### func New
+### func [New](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L72>)
 
 ```go
 func New(conns []*grpc.ClientConn) ConnPool
