@@ -6,7 +6,7 @@ test:
 	go test -race ./...
 
 doc:
-	go install github.com/princjef/gomarkdoc/cmd/gomarkdoc
+	go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
 	gomarkdoc --output '{{.Dir}}/README.md' ./...
 
 lint:

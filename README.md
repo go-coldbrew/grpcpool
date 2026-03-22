@@ -44,7 +44,7 @@ type ConnPool interface {
 ```
 
 <a name="Dial"></a>
-### func [Dial](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L105>)
+### func [Dial](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L107>)
 
 ```go
 func Dial(target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
@@ -53,7 +53,7 @@ func Dial(target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
 Dial creates a new ConnPool with num connections to target.
 
 <a name="DialContext"></a>
-### func [DialContext](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L83>)
+### func [DialContext](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L85>)
 
 ```go
 func DialContext(_ context.Context, target string, num uint, opts ...grpc.DialOption) (ConnPool, error)
@@ -64,7 +64,7 @@ DialContext creates a new ConnPool with num connections to target.
 Note: The ctx parameter is retained for backward compatibility but is not used. Cancellation and deadlines in ctx do not affect connection creation.
 
 <a name="New"></a>
-### func [New](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L72>)
+### func [New](<https://github.com/go-coldbrew/grpcpool/blob/main/pool.go#L74>)
 
 ```go
 func New(conns []*grpc.ClientConn) ConnPool

@@ -47,7 +47,7 @@ func (p *roundRobinConnPool) Num() int {
 
 func (p *roundRobinConnPool) Conn() *grpc.ClientConn {
 	// Overflow at math.MaxUint32 is intentional and correct: the modulo
-	// operation still distributes evenly across connections after wrap-around.
+	// operation continues to round-robin across connections after wrap-around.
 	i := atomic.AddUint32(&p.idx, 1)
 	return p.conns[i%uint32(len(p.conns))]
 }
