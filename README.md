@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-	// Create individual gRPC connections
+	// Create individual gRPC connections (NewClient is lazy — no real connection yet)
 	conn1, err := grpc.NewClient("localhost:9090",
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -108,18 +108,12 @@ func main() {
 		panic(err)
 	}
 
-	// Create a pool from existing connections
+	// Create a round-robin pool from existing connections
 	pool := grpcpool.New([]*grpc.ClientConn{conn1, conn2})
 	defer pool.Close()
 
 	fmt.Println("pool size:", pool.Num())
 }
-```
-
-#### Output
-
-```
-pool size: 2
 ```
 
 </p>
