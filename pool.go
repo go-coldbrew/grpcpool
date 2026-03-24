@@ -6,7 +6,6 @@ import (
 	"errors"
 	"sync/atomic"
 
-	"github.com/hashicorp/go-multierror"
 	"google.golang.org/grpc"
 )
 
@@ -53,13 +52,13 @@ func (p *roundRobinConnPool) Conn() *grpc.ClientConn {
 }
 
 func (p *roundRobinConnPool) Close() error {
-	var errs error
+	var errs []error
 	for _, conn := range p.conns {
 		if err := conn.Close(); err != nil {
-			errs = multierror.Append(errs, err)
+			errs = append(errs, err)
 		}
 	}
-	return errs
+	return errors.Join(errs...)
 }
 
 func (p *roundRobinConnPool) Invoke(ctx context.Context, method string, args interface{}, reply interface{}, opts ...grpc.CallOption) error {
