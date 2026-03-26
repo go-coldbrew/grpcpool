@@ -9,6 +9,10 @@ import (
 	"google.golang.org/grpc"
 )
 
+// SupportPackageIsVersion1 is a compile-time assertion constant.
+// Downstream packages reference this to enforce version compatibility.
+const SupportPackageIsVersion1 = true
+
 // based on https://github.com/googleapis/google-api-go-client/blob/v0.115.0/transport/grpc/pool.go
 
 // ConnPool is a pool of grpc.ClientConns.
